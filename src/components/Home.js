@@ -30,7 +30,7 @@ function Home() {
 
 	return ( 
 		<div style={{ margin: '10rem' }}> 
-		<h4>CRUD Operations using React, & React Hooks</h4>
+		<h4>User Management Dashboard</h4>
 			<Table striped bordered hover size="sm"> 
 				<thead> 
 					<tr> 
