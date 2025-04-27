@@ -12,7 +12,6 @@ function Edit() {
   const navigate = useNavigate();
   const nameInputRef = useRef(null);
 
-  // Focus the name input on mount to ensure cursor control
   useEffect(() => {
     if (nameInputRef.current) {
       nameInputRef.current.focus();

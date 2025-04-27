@@ -35,7 +35,7 @@ function Home() {
   return (
     <div className="container glossy-container">
       <h4>User Management Dashboard</h4>
-      <Table striped bordered hover size="sm">
+      <Table striped bordered hover size="sm" className="glossy-table">
         <thead>
           <tr>
             <th className="header-name">Name</th>
