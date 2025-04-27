@@ -11,16 +11,16 @@ function Add() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const id = Employees.length + 1; // Simple ID generation
+    const id = Employees.length + 1;
     Employees.push({ id, Name: name, Age: age, Email: email });
-    navigate('/'); // Redirect to home
+    navigate('/');
   };
 
   return (
-    <div style={{ margin: '10rem' }}>
+    <div className="container">
       <h4>Add New User</h4>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="form-group">
           <label>Name</label>
           <input
             type="text"
@@ -29,7 +29,7 @@ function Add() {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Age</label>
           <input
             type="number"
@@ -38,7 +38,7 @@ function Add() {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Email</label>
           <input
             type="email"
