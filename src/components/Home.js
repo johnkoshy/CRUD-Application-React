@@ -15,7 +15,7 @@ function Home() {
         ];
   });
 
-  let history = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem('employees', JSON.stringify(employees));

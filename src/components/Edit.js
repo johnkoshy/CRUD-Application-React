@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
@@ -10,27 +10,34 @@ function Edit() {
   const [email, setEmail] = useState(localStorage.getItem('Email') || '');
   const id = localStorage.getItem('id');
   const navigate = useNavigate();
+  const nameInputRef = useRef(null);
+
+  // Focus the name input on mount to ensure cursor control
+  useEffect(() => {
+    if (nameInputRef.current) {
+      nameInputRef.current.focus();
+    }
+  }, []);
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedEmployee = { id: parseInt(id), Name: name, Age: parseInt(age), Email: email };
 
-    // Get existing employees from localStorage
     const savedEmployees = JSON.parse(localStorage.getItem('employees') || '[]');
-    // Update the employee
     const updatedEmployees = savedEmployees.map((emp) =>
       emp.id === parseInt(id) ? updatedEmployee : emp
     );
-    // Save to localStorage
     localStorage.setItem('employees', JSON.stringify(updatedEmployees));
 
-    // Clear temporary edit data
     localStorage.removeItem('id');
     localStorage.removeItem('Name');
     localStorage.removeItem('Age');
     localStorage.removeItem('Email');
 
-    // Redirect to Home
     navigate('/');
   };
 
@@ -43,7 +50,8 @@ function Edit() {
           <Form.Control
             type="text"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={handleNameChange}
+            ref={nameInputRef}
             required
           />
         </Form.Group>

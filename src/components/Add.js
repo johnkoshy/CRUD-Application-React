@@ -12,22 +12,17 @@ function Add() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const id = Date.now(); // Simple unique ID (use UUID in production)
+    const id = Date.now();
     const newEmployee = { id, Name: name, Age: parseInt(age), Email: email };
 
-    // Get existing employees from localStorage
     const savedEmployees = JSON.parse(localStorage.getItem('employees') || '[]');
-    // Add new employee
     const updatedEmployees = [...savedEmployees, newEmployee];
-    // Save to localStorage
     localStorage.setItem('employees', JSON.stringify(updatedEmployees));
 
-    // Clear form
     setName('');
     setAge('');
     setEmail('');
 
-    // Redirect to Home
     navigate('/');
   };
 
