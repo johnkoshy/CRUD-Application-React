@@ -1,0 +1,73 @@
+.glossy-container {
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-image: none !important;
+  }
+  
+  .glossy-button {
+    background: linear-gradient(to bottom, #ffffff, #d9d9d9);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.7);
+    transition: all 0.2s ease;
+    color: #333;
+  }
+  
+  .glossy-button:hover {
+    background: linear-gradient(to bottom, #f0f0f0, #c0c0c0);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
+  }
+  
+  .btn-add-user.glossy-button {
+    background: linear-gradient(to bottom, #28a745, #218838);
+    color: white;
+  }
+  
+  .btn-add-user.glossy-button:hover {
+    background: linear-gradient(to bottom, #218838, #1e7e34);
+  }
+  
+  .footer {
+    margin-top: 20px;
+    text-align: center;
+    color: #666;
+  }
+  
+  /* Column Header Styles */
+  .header-name,
+  .header-age,
+  .header-email,
+  .header-edit,
+  .header-remove {
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    text-align: center;
+    border-bottom: 2px solid #ffffff;
+  }
+  
+  .header-name {
+    background: linear-gradient(to bottom, #4a90e2, #357abd);
+  }
+  
+  .header-age {
+    background: linear-gradient(to bottom, #50c878, #3da863);
+  }
+  
+  .header-email {
+    background: linear-gradient(to bottom, #f7b731, #e0a008);
+  }
+  
+  .header-edit {
+    background: linear-gradient(to bottom, #6c757d, #5a6268);
+  }
+  
+  .header-remove {
+    background: linear-gradient(to bottom, #dc3545, #c82333);
+  }

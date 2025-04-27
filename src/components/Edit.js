@@ -1,84 +1,76 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Employees from './Employees';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import './Home.css';
 
 function Edit() {
+  const [name, setName] = useState(localStorage.getItem('Name') || '');
+  const [age, setAge] = useState(localStorage.getItem('Age') || '');
+  const [email, setEmail] = useState(localStorage.getItem('Email') || '');
+  const id = localStorage.getItem('id');
+  const navigate = useNavigate();
 
-	// usestate react hook used to set and get values from the jsx 
-	const [name, setname] = useState(''); 
-	const [age, setage] = useState(''); 
-	const [email, setemail] = useState(''); 
-	const [id, setid] = useState(''); 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const updatedEmployee = { id: parseInt(id), Name: name, Age: parseInt(age), Email: email };
 
-	// used for navigation with logic in javascript 
-	let history = useNavigate() 
+    // Get existing employees from localStorage
+    const savedEmployees = JSON.parse(localStorage.getItem('employees') || '[]');
+    // Update the employee
+    const updatedEmployees = savedEmployees.map((emp) =>
+      emp.id === parseInt(id) ? updatedEmployee : emp
+    );
+    // Save to localStorage
+    localStorage.setItem('employees', JSON.stringify(updatedEmployees));
 
-	// to get the index (id)
-	var index = Employees.map(function (e) {
-		return e.id; }).indexOf(id); 
+    // Clear temporary edit data
+    localStorage.removeItem('id');
+    localStorage.removeItem('Name');
+    localStorage.removeItem('Age');
+    localStorage.removeItem('Email');
 
-	// handleSubmit to used to take input and update the fields with the new values
-	const handleSubmit = (e) => { 
+    // Redirect to Home
+    navigate('/');
+  };
 
-		// to block refreshing the page
-		e.preventDefault(); 
+  return (
+    <div className="container glossy-container">
+      <h4>Edit User</h4>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Age</Form.Label>
+          <Form.Control
+            type="number"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            required
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </Form.Group>
+        <Button type="submit" className="glossy-button" variant="primary">
+          Save Changes
+        </Button>
+      </Form>
+    </div>
+  );
+}
 
-		// getting the index of array 
-		let a = Employees[index]
-
-		// insert value from the input and update the data
-		a.Name = name 
-		a.Age = age 
-		a.Email = email
-
-		// go back to main page (home Page, denoted by /)
-		history('/') 
-	} 
-
-	// Useeffect to take care that page will render once only
-	useEffect(() => { 
-		setname(localStorage.getItem('Name')) 
-		setage(localStorage.getItem('Age')) 
-		setemail(localStorage.getItem('Email')) 
-		setid(localStorage.getItem('id')) 
-	}, [])
-
-	return ( 
-		<div> 
-			<Form className="d-grid gap-2"
-				style={{ margin: '15rem' }}>
-
-				{/* setting a name, age, email from input field*/} 
-				<Form.Group className="mb-3" controlId="formName"> 
-					<Form.Control value={name} onChange={e => setname(e.target.value)} 
-						type="text" placeholder="Enter your name" /> 
-				</Form.Group> 
-
-				<Form.Group className="mb-3" controlId="formAge"> 
-					<Form.Control value={age} onChange={e => setage(e.target.value)} 
-						type="text" placeholder="Enter your age" /> 
-				</Form.Group> 
-				
-				<Form.Group className="mb-3" controlId="formEmail"> 
-					<Form.Control value={email}	onChange={e => setemail(e.target.value)} 
-						type="text" placeholder="Enter your email" /> 
-				</Form.Group> 
-
-				{/* the onclick event to submit the input values */} 
-				<Button 
-					onClick={e => handleSubmit(e)} variant="primary" type="submit" size="lg">Update 
-				</Button> 
-
-				{/* back to main page after editing */} 
-				<Link className="d-grid gap-2 links" to='/'> 
-					<Button variant="warning" size="lg">Home</Button> 
-				</Link> 
-			</Form> 
-		</div> 
-	) 
-} 
-
-export default Edit 
+export default Edit;

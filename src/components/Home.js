@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Employees from './Employees';
 import { Link, useNavigate } from 'react-router-dom';
+import './Home.css';
 
 function Home() {
+  const [employees, setEmployees] = useState(() => {
+    const savedEmployees = localStorage.getItem('employees');
+    return savedEmployees
+      ? JSON.parse(savedEmployees)
+      : [
+          { id: 1, Name: 'John Doe', Age: 30, Email: 'john@example.com' },
+          { id: 2, Name: 'Jane Smith', Age: 25, Email: 'jane@example.com' },
+        ];
+  });
+
   let history = useNavigate();
+
+  useEffect(() => {
+    localStorage.setItem('employees', JSON.stringify(employees));
+  }, [employees]);
 
   function setID(id, name, age, email) {
     localStorage.setItem('id', id);
@@ -15,28 +29,24 @@ function Home() {
   }
 
   function deleted(id) {
-    var index = Employees.map(function (e) {
-      return e.id;
-    }).indexOf(id);
-    Employees.splice(index, 1);
-    history('/');
+    setEmployees(employees.filter((e) => e.id !== id));
   }
 
   return (
-    <div className="container">
+    <div className="container glossy-container">
       <h4>User Management Dashboard</h4>
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Email</th>
-            <th>Update</th>
-            <th>Delete</th>
+            <th className="header-name">Name</th>
+            <th className="header-age">Age</th>
+            <th className="header-email">Email</th>
+            <th className="header-edit">Edit</th>
+            <th className="header-remove">Remove</th>
           </tr>
         </thead>
         <tbody>
-          {Employees.map((item) => (
+          {employees.map((item) => (
             <tr key={item.id}>
               <td>{item.Name}</td>
               <td>{item.Age}</td>
@@ -44,27 +54,34 @@ function Home() {
               <td>
                 <Link to={`/edit`}>
                   <Button
-                    onClick={(e) => setID(item.id, item.Name, item.Age, item.Email)}
+                    onClick={() => setID(item.id, item.Name, item.Age, item.Email)}
                     variant="secondary"
+                    className="glossy-button"
                   >
-                    Update
+                    Edit
                   </Button>
                 </Link>
               </td>
               <td>
-                <Button onClick={() => deleted(item.id)} variant="danger">
-                  Delete
+                <Button
+                  onClick={() => deleted(item.id)}
+                  variant="danger"
+                  className="glossy-button"
+                >
+                  Remove
                 </Button>
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
-      <Link className="d-grid gap-2" to="/add">
-        <Button variant="warning" size="lg">
-          Add a New User
-        </Button>
-      </Link>
+      <div className="add-button-container">
+        <Link to="/add">
+          <Button className="btn-add-user glossy-button" size="lg">
+            Add a New User
+          </Button>
+        </Link>
+      </div>
       <div className="footer">© 2023 Copyright</div>
     </div>
   );

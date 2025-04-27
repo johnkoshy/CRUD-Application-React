@@ -155,3 +155,41 @@ h4 {
     padding: 0.4rem 1rem;
   }
 }
+/* Add to existing App.css */
+a {
+  text-decoration: none !important; /* Remove underline */
+  color: inherit; /* Inherit color from parent */
+}
+
+a:hover {
+  text-decoration: none !important;
+}
+
+/* Ensure the Add button container looks clean */
+.add-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+.btn-warning {
+  background: #f7ca18; /* Softer yellow */
+  border: none;
+  color: #2c3e50;
+}
+
+.btn-warning:hover {
+  background: #e4b104; /* Darker yellow on hover */
+  transform: scale(1.05);
+}
+.btn-add-user {
+  background: #3498db; /* Blue to match primary theme */
+  border: none;
+  color: #ffffff;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+}
+
+.btn-add-user:hover {
+  background: #2980b9;
+  transform: scale(1.05);
+}
